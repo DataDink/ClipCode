@@ -57,7 +57,7 @@ namespace ClipCode
                 line = ReplaceCode(line, "[a-zA-Z0-9]+&nbsp;", ""); // We don't care about anything else.
                     
                 // Now we can close color spans
-                line = Regex.Replace(line, "(<span class=\"c\\d+\">.+?)(<span class=\"c\\d+\">)", "$1</span>$2");
+                line = Regex.Replace(line, "(<span class=\"c\\d+\">.*?)(?=<span class=\"c\\d+\">)", "$1</span>");
                 if (Regex.IsMatch(line, "<span class=\"c\\d+\">"))
                     line += "</span>";
                 lines.Add(line);
