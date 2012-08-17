@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -63,11 +64,13 @@ namespace ClipCode
                 lines.Add(line);
             }
 
+            var className = "clip-code-" + Guid.NewGuid();
+
             // Contain the code in a div with overflow set to auto and a max-height
             var result = "<div style=\"overflow: auto; max-height: 600px; border: 1px dotted #808080; margin: 25px;\">\r\n"
                          + "\t<style>";
             // Create an inline styling for the code block
-            result += ".clip-code {font-family: Menlo, Monaco, Consolas, \"Courier New\", monospace;"
+            result += "." + className + " {font-family: Menlo, Monaco, Consolas, \"Courier New\", monospace;"
                       + "font-size: 11px;"
                       + "padding: 5px;"
                       + "border: 1px dotted #404040;"
@@ -75,10 +78,10 @@ namespace ClipCode
                       + "list-style: decimal outside none;"
                       + "margin: 0px 0px 0px 33px;}";
             var colorIndex = 0;
-            colors.ForEach(c => result += ".clip-code .c" + colorIndex++ + "{color: " + c + ";}");
+            colors.ForEach(c => result += "." + className + " .c" + colorIndex++ + "{color: " + c + ";}");
             result += "</style>\r\n";
             // Add each line as a ordered-list item (so we get line numbers)
-            result += "\t<ol class=\"clip-code\">\r\n";
+            result += "\t<ol class=\"" + className + "\">\r\n";
             lines.ForEach(l => result += "\t\t<li>" + l + "</li>\r\n");
             result += "\t</ol>\r\n</div>";
             return result;

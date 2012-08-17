@@ -4,18 +4,6 @@
         <name>ClipCode</name>
     </assembly>
     <members>
-        <member name="T:ClipCode.VsRtfParser">
-            <summary>
-            Parses Visual Studio clipboard RTF ONLY. This is not a fully-featured RTF parser <br />
-            </summary>
-        </member>
-        <member name="M:ClipCode.VsRtfParser.ParseToHtml(System.String)">
-            <summary>
-            Parses Visual Studio clipboard RTF ONLY. This is not a fully-featured RTF parser <br />
-            This also makes a number of assumptions about VS rtf formatting. <br />
-            Please report bugs to https://github.com/datadink mailto:markerdink@gmail.com
-            </summary>
-        </member>
         <member name="T:ClipCode.Connect">
             <summary>The object for implementing an Add-in.</summary>
             <seealso class='IDTExtensibility2' />
@@ -67,6 +55,18 @@
             <param term='varOut'>Parameters passed from the command handler to the caller.</param>
             <param term='handled'>Informs the caller if the command was handled or not.</param>
             <seealso class='Exec' />
+        </member>
+        <member name="T:ClipCode.VsRtfParser">
+            <summary>
+            Parses Visual Studio clipboard RTF ONLY. This is not a fully-featured RTF parser <br />
+            </summary>
+        </member>
+        <member name="M:ClipCode.VsRtfParser.ParseToHtml(System.String)">
+            <summary>
+            Parses Visual Studio clipboard RTF ONLY. This is not a fully-featured RTF parser <br />
+            This also makes a number of assumptions about VS rtf formatting. <br />
+            Please report bugs to https://github.com/datadink mailto:markerdink@gmail.com
+            </summary>
         </member>
     </members>
 </doc>
