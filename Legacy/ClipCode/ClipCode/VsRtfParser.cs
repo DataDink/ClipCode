@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,8 @@ namespace ClipCode
     /// </summary>
     public class VsRtfParser
     {
-        private VsRtfParser() { }
+        private VsRtfParser() {}
+
         /// <summary>
         /// Parses Visual Studio clipboard RTF ONLY. This is not a fully-featured RTF parser <br />
         /// This also makes a number of assumptions about VS rtf formatting. <br />
@@ -23,7 +24,7 @@ namespace ClipCode
             var lines = new List<string>();
 
             // Reading colors from header
-            var colors = new List<string>(new[] { "#000000" });
+            var colors = new List<string>(new[] {"#000000"});
             var colorHeader = Regex.Match(rawRtf, "\\{\\\\colortbl.+?\\}");
             var colorValues = Regex.Matches(colorHeader.Value, "\\\\red(?<red>\\d+)\\\\green(?<green>\\d+)\\\\blue(?<blue>\\d+)");
             colors.AddRange(colorValues.OfType<Match>()
@@ -44,24 +45,25 @@ namespace ClipCode
             rawRtf = ReplaceCode(rawRtf, "par ", "\r\n"); // Adding real line-breaks
             string line;
             using (var reader = new StringReader(rawRtf))
-                while ((line = reader.ReadLine()) != null) {
-                    // Make html friendly
-                    line = line.Replace("&", "&amp;")
-                        .Replace("<", "&lt;")
-                        .Replace(">", "&gt;")
-                        .Replace(" ", "&nbsp;");
+            while ((line = reader.ReadLine()) != null)
+            {
+                // Make html friendly
+                line = line.Replace("&", "&amp;")
+                    .Replace("<", "&lt;")
+                    .Replace(">", "&gt;")
+                    .Replace(" ", "&nbsp;");
 
-                    // Handle the codes we care about... (Assuming a space after /codes)
-                    line = ReplaceCode(line, "tab&nbsp;", "&nbsp;&nbsp;&nbsp;&nbsp;");
-                    line = ReplaceCode(line, "cf(\\d+)&nbsp;", "<span class=\"c$1\">"); // Will close these later
-                    line = ReplaceCode(line, "[a-zA-Z0-9]+&nbsp;", ""); // We don't care about anything else.
-
-                    // Now we can close color spans
-                    line = Regex.Replace(line, "(<span class=\"c\\d+\">.*?)(?=<span class=\"c\\d+\">)", "$1</span>");
-                    if (Regex.IsMatch(line, "<span class=\"c\\d+\">"))
-                        line += "</span>";
-                    lines.Add(line);
-                }
+                // Handle the codes we care about... (Assuming a space after /codes)
+                line = ReplaceCode(line, "tab&nbsp;", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                line = ReplaceCode(line, "cf(\\d+)&nbsp;", "<span class=\"c$1\">"); // Will close these later
+                line = ReplaceCode(line, "[a-zA-Z0-9]+&nbsp;", ""); // We don't care about anything else.
+                    
+                // Now we can close color spans
+                line = Regex.Replace(line, "(<span class=\"c\\d+\">.*?)(?=<span class=\"c\\d+\">)", "$1</span>");
+                if (Regex.IsMatch(line, "<span class=\"c\\d+\">"))
+                    line += "</span>";
+                lines.Add(line);
+            }
 
             var className = "clip-code-" + Guid.NewGuid();
 
@@ -89,7 +91,7 @@ namespace ClipCode
         private static string ReplaceCode(string line, string code, string replace)
         {
             // In most usages of this a space is being assumed after each /code
-            return Regex.Replace(line, "(?<!\\\\)\\\\" + code, replace);
+            return Regex.Replace(line, @"(?<!\\)\\" + code, replace);
         }
     }
 }

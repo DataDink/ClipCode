@@ -8,7 +8,7 @@ There are many add-ins out there that already do this very thing - but this one 
 
 How To Install:
 ---------------
-* Copy `ClipCode.dll` along with the `ClipCode.AddIn` file and place it in your Visual Studio addins folder at `%documents%/Visual Studio 2010/Add-Ins`
+* Copy `ClipCode.dll` along with the `ClipCode.AddIn` file and place it in your Visual Studio addins folder at `%documents%/Visual Studio 2012/Add-Ins` (you may need to create this folder)
 * Poof! Next time you start Visual Studio will have a "Copy to HTML" feature in your "Edit" menu.
 
 How To Use:
